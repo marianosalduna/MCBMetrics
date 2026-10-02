@@ -83,17 +83,6 @@ def fmt_pct(val, decimals=2):
         return str(val)
 
 
-def _color_match(v):
-    """CSS color for % Matched cells (numeric value 0-100+)."""
-    try:
-        f = float(v)
-    except (TypeError, ValueError):
-        return ""
-    if f >= 80:
-        return "background-color: #d4edda; color: #155724"
-    return "background-color: #fff3cd; color: #856404"
-
-
 def worker_label(initials, names_dict):
     name = names_dict.get(initials.strip(), "")
     return f"{initials} — {name}" if name else initials
@@ -369,7 +358,6 @@ with tab1:
             "% Matched": "{:.2f}%",
             "% UMC": "{:.4f}%",
         })
-        .applymap(_color_match, subset=["% Matched"])
         .hide(axis="index")
     )
     st.dataframe(styled_wsum, use_container_width=True)
@@ -450,7 +438,6 @@ with tab1:
                             mo_disp.style
                             .format({"Deposit": "${:,.2f}", "Matched": "${:,.2f}", "UMC": "${:,.2f}",
                                      "% Matched": "{:.2f}%", "% UMC": "{:.4f}%"})
-                            .applymap(_color_match, subset=["% Matched"])
                             .hide(axis="index")
                         )
                         st.dataframe(styled_mo, use_container_width=True)
@@ -482,7 +469,6 @@ with tab1:
                         ms_disp.style
                         .format({"Deposit": "${:,.2f}", "Matched": "${:,.2f}", "UMC": "${:,.2f}",
                                  "% Matched": "{:.2f}%", "% UMC": "{:.4f}%"})
-                        .applymap(_color_match, subset=["% Matched"])
                         .hide(axis="index")
                     )
                     st.dataframe(styled_ms, use_container_width=True)
@@ -504,7 +490,6 @@ with tab1:
                         deps_disp.style
                         .format({"Deposit": "${:,.2f}", "Matched": "${:,.2f}", "UMC": "${:,.2f}",
                                  "% Matched": "{:.2f}%", "% UMC": "{:.4f}%"})
-                        .applymap(_color_match, subset=["% Matched"])
                         .hide(axis="index")
                     )
                     st.dataframe(styled_deps, use_container_width=True)
@@ -592,7 +577,6 @@ with tab2:
                             ins_disp.style
                             .format({"Deposit": "${:,.2f}", "Matched": "${:,.2f}", "UMC": "${:,.2f}",
                                      "% Matched": "{:.2f}%", "% UMC": "{:.4f}%"})
-                            .applymap(_color_match, subset=["% Matched"])
                             .hide(axis="index")
                         )
                         st.dataframe(styled_ins, use_container_width=True)
@@ -713,7 +697,6 @@ with tab3:
             "Total UMC Backlog": "${:,.2f}",
             "% Backlog / Recv":  "{:.4f}%",
         })
-        .applymap(_color_match, subset=["% Reconciled"])
         .hide(axis="index")
     )
     st.dataframe(styled_tbl, use_container_width=True)
